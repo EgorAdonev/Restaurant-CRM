@@ -7,10 +7,11 @@ import java.util.Objects;
 
 @Embeddable
 public class OrderDetailKey implements Serializable {
+
     @Column(name = "order_id")
-    Long orderId;
+    private Long orderId;
     @Column(name = "food_item_id")
-    Long foodItemId;
+    private Long foodItemId;
 
     public Long getOrderId() {
         return orderId;

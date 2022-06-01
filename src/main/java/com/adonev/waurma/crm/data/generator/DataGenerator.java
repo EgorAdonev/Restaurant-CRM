@@ -60,8 +60,11 @@ public class DataGenerator {
             foodItemRepository.save(dish);
             Order order = new Order(LocalDateTime.now(), false, customerRepository.findById(1L).orElseThrow(), orderDetailsTest);
             orderRepository.save(order);
-            orderDetailsTest.add(new OrderDetail(order, dish
-                    , 2, 62.46));
+            OrderDetail od1 = new OrderDetail(order, dish
+                    , 2, 62.46);
+            od1.setFoodItem(dish);
+            od1.setId(new OrderDetailKey());
+            orderDetailsTest.add(od1);
             orderDetailRepository.save(orderDetailsTest.get(0));
 //            Random r = new Random(seed);
 //            List<Order> orders = orderGenerator.create(50, seed).stream().map(oneorder -> {

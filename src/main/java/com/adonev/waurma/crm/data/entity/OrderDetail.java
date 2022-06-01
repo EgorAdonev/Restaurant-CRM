@@ -16,8 +16,16 @@ public class OrderDetail {
         this.totalPrice = totalPrice;
     }
 
+    public OrderDetailKey getId() {
+        return id;
+    }
+
+    public void setId(OrderDetailKey id) {
+        this.id = id;
+    }
+
     @EmbeddedId
-    OrderDetailKey id;
+    OrderDetailKey id = new OrderDetailKey();
 
     @ManyToOne
     @MapsId(value = "orderId")
