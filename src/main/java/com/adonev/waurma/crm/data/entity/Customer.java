@@ -2,11 +2,9 @@ package com.adonev.waurma.crm.data.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
-
-import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "customer")
@@ -21,11 +19,11 @@ public class Customer {
     }
 
     @Id
-    @NotNull
-    @SequenceGenerator(name = "customer_id_sequence", sequenceName = "customer_id_sequence", allocationSize = 1)
-    @GeneratedValue(strategy = SEQUENCE, generator = "customer_id_sequence")
+//    @NotNull
+//    @SequenceGenerator(name = "customer_id_sequence", sequenceName = "customer_id_sequence", allocationSize = 1)
+//    @GeneratedValue(strategy = SEQUENCE, generator = "customer_id_sequence")
     @Column(name = "customer_id")
-    private Long customerId;
+    private UUID customerId;
 
     @NotBlank
     @Column(name = "name",columnDefinition = "VARCHAR")
@@ -42,6 +40,13 @@ public class Customer {
     )
     List<Order> customerOrders = new ArrayList<>();
 
+    public UUID getCustomerId() {
+        return customerId;
+    }
+
+    public void setCustomerId(UUID customerId) {
+        this.customerId = customerId;
+    }
     public String getName() {
         return name;
     }
@@ -58,11 +63,11 @@ public class Customer {
         this.email = email;
     }
 
-    public List<Order> getEmployees() {
+    public List<Order> getCustomerOrders() {
         return customerOrders;
     }
 
-    public void setEmployees(List<Order> orders) {
+    public void setCustomerOrders(List<Order> orders) {
         this.customerOrders = orders;
     }
 

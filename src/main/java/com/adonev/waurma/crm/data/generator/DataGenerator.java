@@ -41,6 +41,7 @@ public class DataGenerator {
                     LocalDateTime.now());
             companyGenerator.setData(Customer::setName, DataType.FULL_NAME);
             companyGenerator.setData(Customer::setEmail, DataType.EMAIL);
+            companyGenerator.setData(Customer::setCustomerId,DataType.UUID);
             List<Customer> companies = customerRepository.saveAll(companyGenerator.create(5, seed));
 
 //            List<FoodItem> statuses = foodItemRepository
@@ -63,7 +64,7 @@ public class DataGenerator {
             OrderDetail od1 = new OrderDetail(order, dish
                     , 2, 62.46);
             od1.setFoodItem(dish);
-            od1.setId(new OrderDetailKey());
+//            od1.setId(new OrderDetailKey());
             orderDetailsTest.add(od1);
             orderDetailRepository.save(orderDetailsTest.get(0));
 //            Random r = new Random(seed);

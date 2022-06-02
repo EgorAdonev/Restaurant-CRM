@@ -4,6 +4,8 @@ import com.adonev.waurma.crm.data.entity.FoodItem;
 import com.adonev.waurma.crm.data.entity.OrderDetail;
 import com.adonev.waurma.crm.data.entity.Customer;
 import com.adonev.waurma.crm.data.entity.Order;
+import com.adonev.waurma.crm.data.repository.OrderRepository;
+import com.adonev.waurma.crm.data.service.CrmService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
 import com.vaadin.flow.component.ComponentEventListener;
@@ -12,45 +14,61 @@ import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.formlayout.FormLayout;
+import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
-import com.vaadin.flow.component.textfield.EmailField;
+import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
-import com.vaadin.flow.data.binder.BeanValidationBinder;
-import com.vaadin.flow.data.binder.Binder;
-import com.vaadin.flow.data.binder.ValidationException;
+import com.vaadin.flow.data.binder.*;
+import com.vaadin.flow.data.converter.Converter;
+import com.vaadin.flow.data.converter.StringToLongConverter;
 import com.vaadin.flow.shared.Registration;
 
+import java.time.LocalDateTime;
+import java.util.Collections;
 import java.util.List;
 
 public class OrderForm extends FormLayout {
     private Order order;
-    TextField firstName = new TextField("Name");
-    TextField orders = new TextField("Orders");
-    EmailField email = new EmailField("Email");
+    TextField orderId = new TextField("Order id");
+    TextField date = new TextField("Order Date");
+    TextArea orderDetails = new TextArea("Details");
+//    Panel infoPanel = new Panel();
+
     ComboBox<FoodItem> foodItemComboBox = new ComboBox<>("Food Items");
     ComboBox<Customer> customerComboBox = new ComboBox<>("Company");
-    ComboBox<OrderDetail> ordersComboBox = new ComboBox<>("Order's Detail");
+//    ComboBox<OrderDetail> ordersComboBox = new ComboBox<>("Order's Detail");
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
+    CrmService service;
     Binder<Order> binder = new BeanValidationBinder<>(Order.class);
     public OrderForm(List<Customer> customers, List<FoodItem> foodItems, List<OrderDetail> customersOrders){
         addClassName("contact-form");
+//        binder.bind(orderId,
+//                order -> Long.toString(order.getOrderId()),
+//                (order,val) -> order.setOrderId(Long.valueOf(val))
+//                );
+////                Order::setOrderId);
+//
+//        binder.bind(date,
+//                date -> date.getOrderDate().toString(),
+//                (date, title) -> date.setOrderDate(LocalDateTime.parse(title)));
+
         binder.bindInstanceFields(this);
 
         customerComboBox.setItems(customers);
         customerComboBox.setItemLabelGenerator(Customer::getName);
         foodItemComboBox.setItems(foodItems);
         foodItemComboBox.setItemLabelGenerator(FoodItem::getfoodName);
-        ordersComboBox.setItems(customersOrders);
-        ordersComboBox.setItemLabelGenerator(OrderDetail::toString);
+//        ordersComboBox.setItems(customersOrders);
+//        ordersComboBox.setItemLabelGenerator(OrderDetail::toString);
 
-        add(firstName,
-                orders,
-                email,
+        add(orderId,
+                date,
+                orderDetails,
                 customerComboBox,
                 foodItemComboBox,
-                ordersComboBox,
+//                ordersComboBox,
                 createButtonsLayout());
     }
     private Component createButtonsLayout() {
@@ -83,7 +101,7 @@ public class OrderForm extends FormLayout {
 
 
     public static abstract class OrderFormEvent extends ComponentEvent<OrderForm> {
-        private Order order;
+        private final Order order;
         protected OrderFormEvent(OrderForm source, Order order) {
             super(source, false);
             this.order = order;
@@ -116,4 +134,5 @@ public class OrderForm extends FormLayout {
                                                                   ComponentEventListener<T> listener) {
         return getEventBus().addListener(eventType, listener);
     }
+
 }

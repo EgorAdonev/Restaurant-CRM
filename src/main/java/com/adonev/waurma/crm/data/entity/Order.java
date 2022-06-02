@@ -6,8 +6,6 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
-import static javax.persistence.GenerationType.SEQUENCE;
-
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -15,22 +13,23 @@ public class Order {
     }
 
     public Order(LocalDateTime date, Boolean ready, Customer customer, List<OrderDetail> orderDetails) {
-        this.date = date;
+        this.date = String.valueOf(date);
         this.ready = ready;
         this.customer = customer;
         this.orderDetails = orderDetails;
     }
 
     @Id
-    @NotNull
-    @SequenceGenerator(name = "order_id_sequence",sequenceName = "order_id_sequence",allocationSize = 1)
-    @GeneratedValue(strategy = SEQUENCE,generator = "order_id_sequence")
+//    @NotNull
+//    @SequenceGenerator(name = "order_id_sequence",sequenceName = "order_id_sequence",allocationSize = 1)
+//    @GeneratedValue(strategy = SEQUENCE,generator = "order_id_sequence")
     @Column(name = "order_id")
-    private Long orderId;
+    private String orderId;
 
     @NotNull
-    @Column(name = "order_date",columnDefinition = "DATE")
-    private LocalDateTime date;
+    @Column(name = "order_date")
+//            ,columnDefinition = "DATE")
+    private String date;
 
     @NotNull
     @Column(name = "ready",columnDefinition = "bool")
@@ -45,6 +44,22 @@ public class Order {
             )
     )
     Customer customer;
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public String getOrderId() {
+        return orderId;
+    }
+
+    public void setOrderId(Long orderId) {
+        this.orderId = String.valueOf(orderId);
+    }
 //    @OneToMany(
 //            mappedBy = "order",
 //            orphanRemoval = true,
@@ -56,7 +71,7 @@ public class Order {
     @OneToMany(mappedBy = "order",
             orphanRemoval = true,
             cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            fetch = FetchType.LAZY
+            fetch = FetchType.EAGER
     )
     List<OrderDetail> orderDetails = new ArrayList<>();
 
@@ -71,11 +86,11 @@ public class Order {
                 '}';
     }
 
-    public LocalDateTime getOrderDate() {
+    public @NotNull String getOrderDate() {
         return date;
     }
     public void setOrderDate(LocalDateTime date) {
-        this.date = date;
+        this.date = String.valueOf(date);
     }
 
     public Boolean isReady() {

@@ -9,24 +9,24 @@ import java.util.Objects;
 public class OrderDetailKey implements Serializable {
 
     @Column(name = "order_id")
-    private Long orderId;
+    private String orderId;
     @Column(name = "food_item_id")
-    private Long foodItemId;
+    private String foodItemId;
 
-    public Long getOrderId() {
+    public String getOrderId() {
         return orderId;
     }
 
     public void setOrderId(Long orderId) {
-        this.orderId = orderId;
+        this.orderId = String.valueOf(orderId);
     }
 
-    public Long getFoodItemId() {
+    public String getFoodItemId() {
         return foodItemId;
     }
 
     public void setFoodItemId(Long foodItemId) {
-        this.foodItemId = foodItemId;
+        this.foodItemId = String.valueOf(foodItemId);
     }
 
     @Override

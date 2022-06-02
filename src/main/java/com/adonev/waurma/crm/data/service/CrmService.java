@@ -8,6 +8,7 @@ import com.adonev.waurma.crm.data.entity.Order;
 import com.adonev.waurma.crm.data.entity.OrderDetail;
 import com.adonev.waurma.crm.data.repository.OrderDetailRepository;
 import com.adonev.waurma.crm.data.repository.OrderRepository;
+import com.vaadin.flow.function.ValueProvider;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -39,21 +40,6 @@ public class CrmService {
         }
     }
 
-    public long countOrders() {
-        return orderRepository.count();
-    }
-
-    public void deleteOrder(Order order) {
-        orderRepository.delete(order);
-    }
-
-    public void saveOrder(Order order) {
-        if (order == null) {
-            System.err.println("Contact is null. Are you sure you have connected your form to the application?");
-            return;
-        }
-        orderRepository.save(order);
-    }
     public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
     }
@@ -64,4 +50,30 @@ public class CrmService {
         return orderRepository.findAll();
     }
     public List<OrderDetail> findAllOrderDetails() { return orderDetailRepository.findAll(); }
+
+    public long countOrders() {
+        return orderRepository.count();
+    }
+
+    public void deleteOrder(Order order) {
+        orderRepository.delete(order);
+    }
+
+    public void saveOrder(Order order) {
+        if (order == null) {
+            System.err.println("Order is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        orderRepository.save(order);
+    }
+
+    public Order findOrderByID (String orderId) {
+        if (orderId == null) {
+            System.err.println("Order ID is null. Are you sure you have connected your form to the application?");
+            return null;
+        }
+//        orderRepository.findByID(String.valueOf(orderId));
+        return orderRepository.findByID(String.valueOf(orderId));
+    }
+
 }

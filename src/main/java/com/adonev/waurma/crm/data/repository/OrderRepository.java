@@ -17,6 +17,6 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
     List<Order> search(@Param("searchTerm") String searchTerm);
 
     @Query(value = "SELECT h FROM Orders h WHERE h.orderId = :order_id",nativeQuery = true)
-    Order findById(@Param("order_id") String login);
+    Order findByID(@Param("order_id") String login);
 
 }

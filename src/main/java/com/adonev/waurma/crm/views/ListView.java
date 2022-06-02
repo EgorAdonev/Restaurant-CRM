@@ -52,9 +52,9 @@ public class ListView extends VerticalLayout {
     private void configureGrid() {
         grid.addClassNames("order-grid");
         grid.setSizeFull();
-        grid.setColumns("date", "orderDetails");
-        grid.addColumn(order -> order.getOrderDate()).setHeader("Orders info");
-        grid.addColumn(order -> order.getOrderDetails().stream().map(OrderDetail::toString)).setHeader("Order ID");
+//        grid.setColumns("date", "orderDetails");
+//        grid.addColumn(order -> order.getOrderDate()).setHeader("Orders info");
+//        grid.addColumn(order -> order.getOrderDetails().stream().map(OrderDetail::toString)).setHeader("Order Details");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid.asSingleSelect().addValueChangeListener(event ->

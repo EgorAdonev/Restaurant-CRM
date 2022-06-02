@@ -16,24 +16,23 @@ public class FoodItem {
 
     public FoodItem(String foodName, Double foodPrice, List<OrderDetail> orderDetails) {
         this.foodName = foodName;
-        this.foodPrice = foodPrice;
+        this.foodPrice = String.valueOf(foodPrice);
         this.orderDetails = orderDetails;
     }
 
     @Id
-    @SequenceGenerator(name = "food_item_id_sequence",sequenceName = "food_item_id_sequence",allocationSize = 1)
-    @GeneratedValue(strategy = SEQUENCE,generator = "food_item_id_sequence")
+//    @SequenceGenerator(name = "food_item_id_sequence",sequenceName = "food_item_id_sequence",allocationSize = 1)
+//    @GeneratedValue(strategy = SEQUENCE,generator = "food_item_id_sequence")
     @Column(name = "food_item_id")
-    private Long foodItemId;
+    private String foodItemId;
 
     @NotBlank
     @Column(name = "food_name")
     private String foodName;
 
     @NotNull
-    @DecimalMin(value = "0.0001")
     @Column(name = "food_price")
-    private Double foodPrice;
+    private String foodPrice;
 
     @OneToMany(mappedBy = "foodItem")
     List<OrderDetail> orderDetails = new ArrayList<>();
@@ -46,13 +45,19 @@ public class FoodItem {
 //            ))
 //    Order order;
 
+    public String getFoodItemId() {
+        return foodItemId;
+    }
 
-    public Double getfoodPrice() {
+    public void setFoodItemId(String foodItemId) {
+        this.foodItemId = foodItemId;
+    }
+    public @NotNull String getfoodPrice() {
         return foodPrice;
     }
 
     public void setfoodPrice(Double price_food) {
-        this.foodPrice = price_food;
+        this.foodPrice = String.valueOf(price_food);
     }
 
     public String getfoodName() {
