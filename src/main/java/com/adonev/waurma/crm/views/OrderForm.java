@@ -13,64 +13,59 @@ import com.vaadin.flow.component.Key;
 import com.vaadin.flow.component.button.Button;
 import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
+import com.vaadin.flow.component.datetimepicker.DateTimePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.*;
-import com.vaadin.flow.data.converter.Converter;
-import com.vaadin.flow.data.converter.StringToLongConverter;
+import com.vaadin.flow.data.converter.*;
+import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.shared.Registration;
 
-import java.time.LocalDateTime;
-import java.util.Collections;
 import java.util.List;
 
 public class OrderForm extends FormLayout {
     private Order order;
-    TextField orderId = new TextField("Order id");
-    TextField date = new TextField("Order Date");
+    TextField orderId = new TextField("Order ID");
+    DateTimePicker date = new DateTimePicker("Order Date");
     TextArea orderDetails = new TextArea("Details");
-//    Panel infoPanel = new Panel();
 
-    ComboBox<FoodItem> foodItemComboBox = new ComboBox<>("Food Items");
-    ComboBox<Customer> customerComboBox = new ComboBox<>("Company");
-//    ComboBox<OrderDetail> ordersComboBox = new ComboBox<>("Order's Detail");
+//    ComboBox<FoodItem> foodItemComboBox = new ComboBox<>("Food Items");
+
+    ComboBox<OrderDetail> ordersComboBox = new ComboBox<>("Order's Detail");
+
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
     CrmService service;
     Binder<Order> binder = new BeanValidationBinder<>(Order.class);
-    public OrderForm(List<Customer> customers, List<FoodItem> foodItems, List<OrderDetail> customersOrders){
-        addClassName("contact-form");
-//        binder.bind(orderId,
-//                order -> Long.toString(order.getOrderId()),
-//                (order,val) -> order.setOrderId(Long.valueOf(val))
-//                );
-////                Order::setOrderId);
-//
-//        binder.bind(date,
-//                date -> date.getOrderDate().toString(),
-//                (date, title) -> date.setOrderDate(LocalDateTime.parse(title)));
+    public OrderForm(List<OrderDetail> customersOrders){
+        addClassName("order-form");
+        binder.forField(orderId)
+                .withConverter(new StringToIntegerConverter("Must be integer!"))
+                .bind(Order::getOrderId, Order::setOrderId);
+        binder.forField(date)
+//                .withConverter(new StringToDateConverter())
+                .bind(Order::getOrderDate, Order::setOrderDate);
+//        binder.forField(orderDetails)
+//                .bind(Order::getOrderDetails,Order::setOrderDetails);
 
-        binder.bindInstanceFields(this);
+//                Order::setOrderId);
 
-        customerComboBox.setItems(customers);
-        customerComboBox.setItemLabelGenerator(Customer::getName);
-        foodItemComboBox.setItems(foodItems);
-        foodItemComboBox.setItemLabelGenerator(FoodItem::getfoodName);
-//        ordersComboBox.setItems(customersOrders);
-//        ordersComboBox.setItemLabelGenerator(OrderDetail::toString);
+        ordersComboBox.setItems(customersOrders);
+        ordersComboBox.setItemLabelGenerator(OrderDetail::getTotalPrice);
+        ordersComboBox.setItemLabelGenerator(OrderDetail::getQuantity);
 
-        add(orderId,
+
+        add(ordersComboBox,
+                orderId,
                 date,
                 orderDetails,
-                customerComboBox,
-                foodItemComboBox,
-//                ordersComboBox,
                 createButtonsLayout());
     }
+
     private Component createButtonsLayout() {
         save.addThemeVariants(ButtonVariant.LUMO_SUCCESS);
         delete.addThemeVariants(ButtonVariant.LUMO_ERROR);

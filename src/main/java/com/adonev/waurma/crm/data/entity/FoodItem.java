@@ -5,15 +5,19 @@ import javax.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "food_item")
-public class FoodItem {
+public class FoodItem  {
     public FoodItem() {
     }
 
+    public FoodItem(String foodName) {
+        this.foodName=foodName;
+    }
     public FoodItem(String foodName, Double foodPrice, List<OrderDetail> orderDetails) {
         this.foodName = foodName;
         this.foodPrice = String.valueOf(foodPrice);
@@ -21,10 +25,11 @@ public class FoodItem {
     }
 
     @Id
-//    @SequenceGenerator(name = "food_item_id_sequence",sequenceName = "food_item_id_sequence",allocationSize = 1)
-//    @GeneratedValue(strategy = SEQUENCE,generator = "food_item_id_sequence")
+    @SequenceGenerator(name = "food_item_id_sequence",sequenceName = "food_item_id_sequence",allocationSize = 1)
+    @GeneratedValue
+    (strategy = SEQUENCE,generator = "food_item_id_sequence")
     @Column(name = "food_item_id")
-    private String foodItemId;
+    private Integer foodItemId;
 
     @NotBlank
     @Column(name = "food_name")
@@ -37,6 +42,8 @@ public class FoodItem {
     @OneToMany(mappedBy = "foodItem")
     List<OrderDetail> orderDetails = new ArrayList<>();
 
+
+
     //    @ManyToOne
 //    @JoinColumn(name="order",
 //            nullable = false,
@@ -45,11 +52,11 @@ public class FoodItem {
 //            ))
 //    Order order;
 
-    public String getFoodItemId() {
+    public Integer getFoodItemId() {
         return foodItemId;
     }
 
-    public void setFoodItemId(String foodItemId) {
+    public void setFoodItemId(Integer foodItemId) {
         this.foodItemId = foodItemId;
     }
     public @NotNull String getfoodPrice() {

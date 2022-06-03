@@ -1,10 +1,12 @@
 package com.adonev.waurma.crm.data.entity;
 
-import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.UUID;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
+
+import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
 @Table(name = "customer")
@@ -19,11 +21,12 @@ public class Customer {
     }
 
     @Id
-//    @NotNull
-//    @SequenceGenerator(name = "customer_id_sequence", sequenceName = "customer_id_sequence", allocationSize = 1)
-//    @GeneratedValue(strategy = SEQUENCE, generator = "customer_id_sequence")
+    @NotNull
+    @SequenceGenerator(name = "customer_id_sequence", sequenceName = "customer_id_sequence", allocationSize = 1)
+    @GeneratedValue
+    (strategy = SEQUENCE, generator = "customer_id_sequence")
     @Column(name = "customer_id")
-    private UUID customerId;
+    private Integer customerId;
 
     @NotBlank
     @Column(name = "name",columnDefinition = "VARCHAR")
@@ -33,18 +36,18 @@ public class Customer {
     @Column(name = "email",columnDefinition = "VARCHAR")
     private String email;
     @OneToMany(
-            mappedBy = "customer",
-            orphanRemoval = true,
-            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            fetch = FetchType.LAZY
+            mappedBy = "customer"
+//            orphanRemoval = true,
+//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+//            fetch = FetchType.LAZY
     )
-    List<Order> customerOrders = new ArrayList<>();
+    List<Order> customerOrders = new LinkedList<>();
 
-    public UUID getCustomerId() {
+    public Integer getCustomerId() {
         return customerId;
     }
 
-    public void setCustomerId(UUID customerId) {
+    public void setCustomerId(Integer customerId) {
         this.customerId = customerId;
     }
     public String getName() {

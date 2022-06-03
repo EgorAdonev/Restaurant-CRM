@@ -1,0 +1,12 @@
+@media all and (max-width: 1100px) {
+  .customer-view.editing .customer-toolbar,
+  .customer-view.editing .customer-grid {
+    display: none;
+  }
+}
+@media all and (max-width: 1100px) {
+  .list-view.editing-o .toolbar,
+  .list-view.editing-o .order-grid {
+    display: none;
+  }
+}

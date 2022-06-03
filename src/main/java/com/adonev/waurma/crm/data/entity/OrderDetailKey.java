@@ -6,27 +6,27 @@ import java.io.Serializable;
 import java.util.Objects;
 
 @Embeddable
-public class OrderDetailKey implements Serializable {
+public class OrderDetailKey implements Serializable  {
 
     @Column(name = "order_id")
-    private String orderId;
+    private Integer orderId;
     @Column(name = "food_item_id")
-    private String foodItemId;
+    private Integer foodItemId;
 
-    public String getOrderId() {
+    public Integer getOrderId() {
         return orderId;
     }
 
-    public void setOrderId(Long orderId) {
-        this.orderId = String.valueOf(orderId);
+    public void setOrderId(Integer orderId) {
+        this.orderId = orderId;
     }
 
-    public String getFoodItemId() {
+    public Integer getFoodItemId() {
         return foodItemId;
     }
 
-    public void setFoodItemId(Long foodItemId) {
-        this.foodItemId = String.valueOf(foodItemId);
+    public void setFoodItemId(Integer foodItemId) {
+        this.foodItemId = foodItemId;
     }
 
     @Override

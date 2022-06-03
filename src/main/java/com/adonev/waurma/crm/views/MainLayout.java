@@ -31,14 +31,16 @@ public class MainLayout extends AppLayout {
     }
 
     private void createDrawer() {
-        RouterLink listLink = new RouterLink("Orders&Info List", ListView.class);
+        RouterLink listLink = new RouterLink("Orders&Info List", OrderView.class);
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
-//        RouterLink customersListLink = new RouterLink("Customers List", CustomersView.class);
-//        customersListLink.setHighlightCondition(HighlightConditions.sameLocation());
+        RouterLink customersListLink = new RouterLink("Customers List", CustomerView.class);
+        customersListLink.setHighlightCondition(HighlightConditions.sameLocation());
 //        RouterLink foodItemListLink = new RouterLink("Food Items(menu) List", FoodItemsView.class);
 //        customersListLink.setHighlightCondition(HighlightConditions.sameLocation());
 
-        addToDrawer(new VerticalLayout(listLink));
+        addToDrawer(new VerticalLayout(
+                listLink,customersListLink
+        ));
 
     }
 }

@@ -32,14 +32,6 @@ public class CrmService {
 
     }
 
-    public List<Order> findAllOrders(String stringFilter) {
-        if (stringFilter == null || stringFilter.isEmpty()) {
-            return orderRepository.findAll();
-        } else {
-            return orderRepository.search(stringFilter);
-        }
-    }
-
     public List<Customer> findAllCustomers() {
         return customerRepository.findAll();
     }
@@ -67,13 +59,30 @@ public class CrmService {
         orderRepository.save(order);
     }
 
-    public Order findOrderByID (String orderId) {
-        if (orderId == null) {
-            System.err.println("Order ID is null. Are you sure you have connected your form to the application?");
-            return null;
+    public List<Order> findAllOrders(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return orderRepository.findAll();
+        } else {
+            return orderRepository.search(stringFilter);
         }
-//        orderRepository.findByID(String.valueOf(orderId));
-        return orderRepository.findByID(String.valueOf(orderId));
     }
 
+    public void deleteCustomer(Customer customer) {
+        customerRepository.delete(customer);
+    }
+    public void saveCustomer(Customer customer) {
+        if (customer == null) {
+            System.err.println("Order is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        customerRepository.save(customer);
+    }
+
+    public List<Customer> findAllCustomers(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return customerRepository.findAll();
+        } else {
+            return customerRepository.search(stringFilter);
+        }
+    }
 }
