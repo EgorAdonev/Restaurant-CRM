@@ -57,40 +57,13 @@ public class DataGenerator {
             orderGenerator.setData(Order::setOrderDate, DataType.DATETIME_LAST_7_DAYS);
             orderGenerator.setData(Order::setReady, DataType.BOOLEAN_10_90);
             orderGenerator.setData(Order::setOrderId,DataType.ID);
+
+//            com.adonev.waurma.crm.data.entity.Customer customer = new Customer();
+//            customerRepository.saveAll()
+            orderGenerator.setData(Order::setCustomer,customers.get(0));
             List<Order> orderss = orderRepository.saveAll(orderGenerator.create(5,seed));
 //            orderGenerator.setData(Order::setOrderDetails, new OrderDetail());
 //            orderGenerator.setData(Order::setFoodItemsInOrder, DataType.EMAIL);
-
-//            List<OrderDetail> orderDetailsTest = new ArrayList<>();
-//            FoodItem dish = new FoodItem("Chicken Wings", 31.23, orderDetailsTest);
-//
-//            foodItemRepository.save(dish);
-//            Order order = new Order(LocalDateTime.now(), false, customerRepository.findById(1L).orElseThrow(), orderDetailsTest);
-//            orderRepository.save(order);
-//            OrderDetail od1 = new OrderDetail(order, dish
-//                    , 2, 62.46);
-//            od1.setFoodItem(dish);
-//            orderDetailsTest.add(od1);
-//            orderDetailRepository.save(orderDetailsTest.get(0));
-
-//            od1.setId(new OrderDetailKey());
-
-//            Random r = new Random(seed);
-//            List<Order> orders = orderGenerator.create(50, seed).stream().map(oneorder -> {
-//                oneorder.setOrderDate(LocalDateTime.now());
-//                oneorder.setReady(true);
-//                List<OrderDetail> orderDetailsTest1 = new ArrayList<>();
-//                OrderDetail od = new OrderDetail();
-//                od.setQuantity(3);
-//                od.setTotalPrice(33.09);
-//                orderDetailsTest1.add(od);
-//                FoodItem dish1 = new FoodItem("Milk Shake", 11.03, orderDetailsTest1);
-//                od.setFoodItem(dish1);
-//                oneorder.setOrderDetails(orderDetailsTest1);
-//                return oneorder;
-//            }).collect(Collectors.toList());
-//
-//            orderRepository.saveAll(orders);
 
             logger.info("Generated demo data");
         };

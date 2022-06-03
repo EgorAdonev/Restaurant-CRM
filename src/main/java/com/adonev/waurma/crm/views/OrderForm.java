@@ -76,10 +76,11 @@ public class OrderForm extends FormLayout {
 //        ordersComboBox.setItemLabelGenerator(OrderDetail::toString);
 
         add(
-                ordersComboBox,
+//                ordersComboBox,
                 ready,
                 date,
                 orderDetails,
+                name,
                 createButtonsLayout());
     }
 

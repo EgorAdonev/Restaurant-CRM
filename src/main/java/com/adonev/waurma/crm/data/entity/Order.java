@@ -8,8 +8,8 @@ import java.util.List;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
-@Table(name = "orders")
-public class Order implements Cloneable  {
+@Table(name = "orders",schema = "public")
+public class Order {
     public Order() {
     }
 
@@ -107,21 +107,5 @@ public class Order implements Cloneable  {
     public void setOrderDetails(String orderDetails) {
         this.orderDetails = String.valueOf(orderDetails);
     }
-
-//    public Customer getCompany() {
-//        return customer;
-//    }
-//
-//    public void setCompany(Customer customer) {
-//        this.customer = customer;
-//    }
-//
-//    public Status getStatus() {
-//        return status;
-//    }
-//
-//    public void setStatus(Status status) {
-//        this.status = status;
-//    }
 
 }

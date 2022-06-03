@@ -9,7 +9,7 @@ import java.util.List;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
-@Table(name = "food_item")
+@Table(name = "food_item",schema = "public")
 public class FoodItem  {
     public FoodItem() {
     }

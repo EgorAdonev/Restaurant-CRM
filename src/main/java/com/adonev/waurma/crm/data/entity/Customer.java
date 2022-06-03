@@ -1,7 +1,11 @@
 package com.adonev.waurma.crm.data.entity;
 
+import com.vaadin.exampledata.DataType;
+
+import java.time.LocalDateTime;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Random;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -9,9 +13,14 @@ import javax.validation.constraints.NotNull;
 import static javax.persistence.GenerationType.SEQUENCE;
 
 @Entity
-@Table(name = "customer")
-public class Customer {
+@Table(name = "customer",schema = "public")
+public class Customer<F> extends DataType<Customer<F>> {
     public Customer() {
+    }
+
+    @Override
+    public Customer<F> getValue(Random random, int i, LocalDateTime localDateTime) {
+        return new Customer<F>();
     }
 
     public Customer(String name, String email, List<Order> customerOrders) {
@@ -36,10 +45,10 @@ public class Customer {
     @Column(name = "email",columnDefinition = "VARCHAR")
     private String email;
     @OneToMany(
-            mappedBy = "customer"
-//            orphanRemoval = true,
-//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-//            fetch = FetchType.LAZY
+            mappedBy = "customer",
+            orphanRemoval = true,
+            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+            fetch = FetchType.LAZY
     )
     List<Order> customerOrders = new LinkedList<>();
 

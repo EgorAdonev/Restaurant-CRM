@@ -84,6 +84,7 @@ public class CustomerForm extends FormLayout {
                 name,
                 email,
                 foodName,
+                foodPrice,
                 createButtonsLayout());
     }
     public CustomerForm(List<Customer> customersOrders){
