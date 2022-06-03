@@ -19,6 +19,9 @@ import com.vaadin.flow.data.binder.Binder;
 import com.vaadin.flow.data.binder.ValidationException;
 import com.vaadin.flow.data.converter.StringToIntegerConverter;
 import com.vaadin.flow.shared.Registration;
+import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.beans.factory.annotation.Autowired;
 
 
 import java.util.List;
@@ -44,6 +47,7 @@ public class CustomerForm extends FormLayout {
     CrmService service;
     Binder<Customer> customerBinder = new BeanValidationBinder<>(Customer.class);
     Binder<FoodItem> foodItemBinder = new BeanValidationBinder<>(FoodItem.class);
+    @Autowired
     public CustomerForm(List<FoodItem> foodItems, List<Customer> customersOrders){
         addClassName("customer-form");
         customerBinder.bind(customerOrders,
@@ -107,6 +111,7 @@ public class CustomerForm extends FormLayout {
         this.customer = customer;
         customerBinder.readBean(customer);
     }
+
 
 
     public static abstract class CustomerFormEvent extends ComponentEvent<CustomerForm> {

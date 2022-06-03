@@ -23,6 +23,9 @@ import com.vaadin.flow.data.binder.*;
 import com.vaadin.flow.data.converter.*;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.shared.Registration;
+import com.vaadin.flow.spring.annotation.SpringComponent;
+import com.vaadin.flow.spring.annotation.UIScope;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -41,6 +44,7 @@ public class OrderForm extends FormLayout {
     Button close = new Button("Cancel");
     CrmService service;
     Binder<Order> binder = new BeanValidationBinder<>(Order.class);
+    @Autowired
     public OrderForm(List<OrderDetail> customersOrders){
         addClassName("order-form");
         binder.forField(orderId)

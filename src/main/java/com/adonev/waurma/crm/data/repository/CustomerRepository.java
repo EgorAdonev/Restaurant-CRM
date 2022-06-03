@@ -17,4 +17,9 @@ public interface CustomerRepository extends JpaRepository<Customer, Long> {
             + "or lower(o.name) like lower(concat('%',:searchTerm,'%'))"
             + "or lower(o.email) like lower(concat('%',:searchTerm,'%'))",nativeQuery = true)
     List<Customer> search(@Param("searchTerm") String searchTerm);
+
+    @Query(value = "SELECT h FROM Customer h WHERE h.customerId = :customer_id",nativeQuery = true)
+    Customer findByID(@Param("customer_id") Integer login);
+
+//    List<Object> findById(Integer customerId);
 }
