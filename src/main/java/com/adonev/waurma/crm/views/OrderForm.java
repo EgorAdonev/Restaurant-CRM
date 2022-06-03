@@ -21,50 +21,63 @@ import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.*;
 import com.vaadin.flow.data.converter.*;
+import com.vaadin.flow.data.validator.DateTimeRangeValidator;
 import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.shared.Registration;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import com.vaadin.flow.spring.annotation.UIScope;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDateTime;
+import java.time.Month;
 import java.util.List;
 
 public class OrderForm extends FormLayout {
     private Order order;
-    TextField orderId = new TextField("Order ID");
+    TextField ready = new TextField("Ready");
     DateTimePicker date = new DateTimePicker("Order Date");
-    TextArea orderDetails = new TextArea("Details");
+    TextArea orderDetails = new TextArea("Details","Comment");
+
+    TextField name = new TextField("Name","Your name");
 
 //    ComboBox<FoodItem> foodItemComboBox = new ComboBox<>("Food Items");
-
     ComboBox<OrderDetail> ordersComboBox = new ComboBox<>("Order's Detail");
+//    ComboBox<Customer> customerComboBox = new ComboBox<>("Customers");
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
     CrmService service;
     Binder<Order> binder = new BeanValidationBinder<>(Order.class);
-    @Autowired
+    Binder<Customer> customerBinder = new BeanValidationBinder<>(Customer.class);
     public OrderForm(List<OrderDetail> customersOrders){
         addClassName("order-form");
-        binder.forField(orderId)
-                .withConverter(new StringToIntegerConverter("Must be integer!"))
-                .bind(Order::getOrderId, Order::setOrderId);
+//        binder.forField(orderId)
+//                .withConverter(new StringToIntegerConverter("Must be integer!"))
+//                .withNullRepresentation(Integer.valueOf("0"))
+//                .bind(Order::getOrderId, Order::setOrderId);
+        customerBinder.forField(name)
+                .bind(Customer::getName, Customer::setName);
+
         binder.forField(date)
-//                .withConverter(new StringToDateConverter())
+                .withValidator(
+                        new DateTimeRangeValidator("Time machine is broken :( Cannot place the order in past",
+                         LocalDateTime.now(), LocalDateTime.of(2100, Month.JANUARY,1,0,0)))
                 .bind(Order::getOrderDate, Order::setOrderDate);
-//        binder.forField(orderDetails)
-//                .bind(Order::getOrderDetails,Order::setOrderDetails);
-
-//                Order::setOrderId);
-
-        ordersComboBox.setItems(customersOrders);
-        ordersComboBox.setItemLabelGenerator(OrderDetail::getTotalPrice);
-        ordersComboBox.setItemLabelGenerator(OrderDetail::getQuantity);
+        binder.forField(orderDetails)
+                .bind(Order::getOrderDetails,Order::setOrderDetails);
+        binder.forField(ready)
+                .withConverter(new StringToBooleanConverter("Must be Boolean!"))
+                .withNullRepresentation(Boolean.FALSE)
+                .bind(Order::isReady,Order::setReady);
 
 
-        add(ordersComboBox,
-                orderId,
+//        ordersComboBox.setItems(customersOrders);
+//        ordersComboBox.setItemLabelGenerator(OrderDetail::toString);
+
+        add(
+                ordersComboBox,
+                ready,
                 date,
                 orderDetails,
                 createButtonsLayout());

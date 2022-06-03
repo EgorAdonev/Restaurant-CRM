@@ -5,7 +5,6 @@ import javax.validation.constraints.*;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 
 import static javax.persistence.GenerationType.SEQUENCE;
 
@@ -43,7 +42,6 @@ public class FoodItem  {
     List<OrderDetail> orderDetails = new ArrayList<>();
 
 
-
     //    @ManyToOne
 //    @JoinColumn(name="order",
 //            nullable = false,
@@ -59,19 +57,19 @@ public class FoodItem  {
     public void setFoodItemId(Integer foodItemId) {
         this.foodItemId = foodItemId;
     }
-    public @NotNull String getfoodPrice() {
-        return foodPrice;
+    public @NotNull Double getfoodPrice() {
+        return Double.valueOf(foodPrice);
     }
 
-    public void setfoodPrice(Double price_food) {
+    public void setFoodPrice(Double price_food) {
         this.foodPrice = String.valueOf(price_food);
     }
 
-    public String getfoodName() {
+    public String getFoodName() {
         return foodName;
     }
 
-    public void setfoodName(String foodName) {
+    public void setFoodName(String foodName) {
         this.foodName = foodName;
     }
     public List<OrderDetail> getOrderDetails() {

@@ -3,7 +3,6 @@ package com.adonev.waurma.crm.data.entity;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDateTime;
-import java.util.LinkedList;
 import java.util.List;
 
 import static javax.persistence.GenerationType.SEQUENCE;
@@ -14,7 +13,7 @@ public class Order implements Cloneable  {
     public Order() {
     }
 
-    public Order(LocalDateTime date, Boolean ready, Customer customer, List<OrderDetail> orderDetails) {
+    public Order(LocalDateTime date, Boolean ready, Customer customer, String orderDetails) {
         this.date = date;
         this.ready = ready;
         this.customer = customer;
@@ -35,7 +34,7 @@ public class Order implements Cloneable  {
 //            ,columnDefinition = "DATE")
     private LocalDateTime date;
 
-    @NotNull
+//    @NotNull
     @Column(name = "ready",columnDefinition = "bool")
     private Boolean ready;
 
@@ -66,20 +65,14 @@ public class Order implements Cloneable  {
     }
 
 
-//    @OneToMany(
-//            mappedBy = "order",
-//            orphanRemoval = true,
-//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-//            fetch = FetchType.LAZY
+//    @OneToOne(mappedBy = "order",
+////            orphanRemoval = true,
+////            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
+//            fetch = FetchType.EAGER
 //    )
-//    List<FoodItem> foodItemsInOrder = new ArrayList<>();//USELESS
-
-    @OneToMany(mappedBy = "order",
-//            orphanRemoval = true,
-//            cascade = {CascadeType.PERSIST, CascadeType.REMOVE},
-            fetch = FetchType.EAGER
-    )
-    List<OrderDetail> orderDetails = new LinkedList<>();
+//    List<OrderDetail> orderDetails = new LinkedList<>();
+    @Column
+    String orderDetails;
 
     @Override
     public String toString() {
@@ -107,12 +100,12 @@ public class Order implements Cloneable  {
         this.ready = ready;
     }
 
-    public List<OrderDetail> getOrderDetails() {
+    public String getOrderDetails() {
         return orderDetails;
     }
 
-    public void setOrderDetails(List<OrderDetail> orderDetails) {
-        this.orderDetails = orderDetails;
+    public void setOrderDetails(String orderDetails) {
+        this.orderDetails = String.valueOf(orderDetails);
     }
 
 //    public Customer getCompany() {

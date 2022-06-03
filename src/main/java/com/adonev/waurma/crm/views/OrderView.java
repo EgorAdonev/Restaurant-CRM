@@ -13,11 +13,11 @@ import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.PermitAll;
 
-@PermitAll
+//@PermitAll
 @Route(value = "",layout = MainLayout.class)
 @PageTitle("Orders")
 public class OrderView extends VerticalLayout {
-    private  Grid<Order> grid = new Grid<>(Order.class);
+    private Grid<Order> grid = new Grid<>(Order.class);
     TextField filterText = new TextField();
     OrderForm form;
     CrmService service;
@@ -56,8 +56,9 @@ public class OrderView extends VerticalLayout {
     private void configureGrid() {
         grid.addClassName("order-grid");
         grid.setSizeFull();
-//        grid.setColumns("date");
-//        grid.addColumn(order -> order.getOrderDate()).setHeader("Order's info");
+//        grid.setColumns("customer");
+        grid.addColumn(order -> order.isReady()).setHeader("Ready");
+//        grid.addColumn(order -> order.getCustomer().getName()).setHeader("Order Details");
 //        grid.addColumn(order -> order.getOrderDetails().stream().map(OrderDetail::toString)).setHeader("Order Details");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 

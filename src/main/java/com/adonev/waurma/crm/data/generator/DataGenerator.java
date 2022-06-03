@@ -3,20 +3,15 @@ package com.adonev.waurma.crm.data.generator;
 import com.adonev.waurma.crm.data.entity.Customer;
 import com.adonev.waurma.crm.data.entity.FoodItem;
 import com.adonev.waurma.crm.data.entity.Order;
-import com.adonev.waurma.crm.data.entity.OrderDetail;
 import com.adonev.waurma.crm.data.repository.CustomerRepository;
 import com.adonev.waurma.crm.data.repository.FoodItemRepository;
 import com.adonev.waurma.crm.data.repository.OrderDetailRepository;
-import com.adonev.waurma.crm.data.entity.*;
 import com.adonev.waurma.crm.data.repository.OrderRepository;
 import com.vaadin.exampledata.DataType;
 import com.vaadin.exampledata.ExampleDataGenerator;
 import com.vaadin.flow.spring.annotation.SpringComponent;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -51,8 +46,8 @@ public class DataGenerator {
 //                            .map(FoodItem::new).collect(Collectors.toList()));
             ExampleDataGenerator<FoodItem> foodItemGenerator = new ExampleDataGenerator<>(FoodItem.class,
                     LocalDateTime.now());
-            foodItemGenerator.setData(FoodItem::setfoodName, DataType.FOOD_PRODUCT_NAME);
-            foodItemGenerator.setData(FoodItem::setfoodPrice, DataType.PRICE);
+            foodItemGenerator.setData(FoodItem::setFoodName, DataType.FOOD_PRODUCT_NAME);
+            foodItemGenerator.setData(FoodItem::setFoodPrice, DataType.PRICE);
             foodItemGenerator.setData(FoodItem::setFoodItemId,DataType.ID);
             List<FoodItem> foodItems = foodItemRepository.saveAll(foodItemGenerator.create(5,seed));
 

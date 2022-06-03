@@ -13,7 +13,7 @@ import com.vaadin.flow.router.Route;
 
 import javax.annotation.security.PermitAll;
 
-@PermitAll
+//@PermitAll
 @Route(value = "customers")
 @PageTitle("Customers")
 public class CustomerView extends VerticalLayout {
@@ -59,9 +59,10 @@ public class CustomerView extends VerticalLayout {
         grid1.setColumns(
                 "customerId",
                 "name", "email");
-        grid1.addColumn(customer -> customer.getName()).setHeader("Customer's info");
-        grid1.addColumn(customer -> customer.getCustomerId()).setHeader("Customer ID");
-        grid1.addColumn(customer -> customer.getEmail()).setHeader("Email");
+
+//        grid1.addColumn(customer -> customer.getCustomerId()).setHeader("Customer ID");
+//        grid1.addColumn(customer -> customer.getName()).setHeader("Customer's Name");
+//        grid1.addColumn(customer -> customer.getEmail()).setHeader("Email");
         grid1.getColumns().forEach(col -> col.setAutoWidth(true));
 
         grid1.asSingleSelect().addValueChangeListener(event ->

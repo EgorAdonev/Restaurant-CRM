@@ -9,7 +9,6 @@ import com.adonev.waurma.crm.data.entity.OrderDetail;
 import com.adonev.waurma.crm.data.repository.OrderDetailRepository;
 import com.adonev.waurma.crm.data.repository.OrderRepository;
 import com.vaadin.flow.function.ValueProvider;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,8 +20,6 @@ public class CrmService {
     private final CustomerRepository customerRepository;
     private final FoodItemRepository foodItemRepository;
     private final OrderDetailRepository orderDetailRepository;
-
-    @Autowired
     public CrmService(OrderRepository orderRepository,
                       CustomerRepository customerRepository,
                       FoodItemRepository foodItemRepository,
