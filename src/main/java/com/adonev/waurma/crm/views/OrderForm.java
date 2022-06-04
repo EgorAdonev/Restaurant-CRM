@@ -52,8 +52,8 @@ public class OrderForm extends FormLayout {
 //        customerBinder.forField(name)
 //                .bind(Customer::getName, Customer::setName);
 
-//        binder.forField(orderDetails)
-//                .bind(Order::getOrderDetails,Order::setOrderDetails);
+        binder.forField(orderDetails)
+                .bind(Order::getOrderDetails,Order::setOrderDetails);
         binder.forField(date)
                 .withValidator(
                         new DateTimeRangeValidator("Time machine is broken :( Cannot place the order in past",
@@ -71,7 +71,6 @@ public class OrderForm extends FormLayout {
                 ready,
                 date,
                 orderDetails,
-//                customerComboBox,
                 name,
                 createButtonsLayout());
     }

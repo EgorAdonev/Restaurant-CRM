@@ -63,7 +63,6 @@ public class CustomerForm extends FormLayout {
 
 //        customerBinder.bindInstanceFields(this);
 //        foodItemBinder.bindInstanceFields(this);
-        customerComboBox.setReadOnly(true);
         customerComboBox.setItems(customers);
         customerComboBox.setItemLabelGenerator(Customer::getName);
 
@@ -71,7 +70,6 @@ public class CustomerForm extends FormLayout {
                 customerComboBox,
                 name,
                 email,
-                foodName,
                 createButtonsLayout());
     }
     private Component createButtonsLayout() {

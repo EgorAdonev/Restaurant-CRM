@@ -58,16 +58,11 @@ public class FoodItemView extends VerticalLayout {
                 "foodName");
 //                , "foodPrice");
 //        gridFoodItem.addColumn(menuItem -> menuItem.getfoodPrice()).setHeader("Price");
-//        grid.addColumn(order -> order.getOrderDate()).setHeader("Order Date");
 
-//        gridFoodItem.addColumn(foodItem -> {
-//            Double ordDet = foodItem.getfoodPrice();
-//            return ordDet==null ? 0.0 : foodItem.getfoodPrice();
-//        }).setHeader("price");
-
-//        grid1.addColumn(customer -> customer.getCustomerId()).setHeader("Customer ID");
-//        grid1.addColumn(customer -> customer.getName()).setHeader("Customer's Name");
-//        grid1.addColumn(customer -> customer.getEmail()).setHeader("Email");
+        gridFoodItem.addColumn(foodItem -> {
+            String ordDet = foodItem.getfoodPrice();
+            return ordDet==null ? 0.0 : foodItem.getfoodPrice();
+        }).setHeader("Price");
         gridFoodItem.getColumns().forEach(col -> col.setAutoWidth(true));
 
         gridFoodItem.asSingleSelect().addValueChangeListener(event ->

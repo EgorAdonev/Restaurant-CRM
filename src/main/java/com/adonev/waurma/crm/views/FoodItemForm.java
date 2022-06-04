@@ -24,7 +24,6 @@ import java.util.List;
 
 public class FoodItemForm extends VerticalLayout {
     private FoodItem foodItem;
-    TextField name = new TextField("Name");
     TextField foodItemId = new TextField("Food ID");
     TextField foodName = new TextField("Food Name");
     TextField foodPrice = new TextField("Price");
@@ -50,27 +49,24 @@ public class FoodItemForm extends VerticalLayout {
 //        customerBinder.forField(email)
 //                .withValidator(new EmailValidator("Not a Correct Email!"))
 //                .bind(Customer::getEmail, Customer::setEmail);
-        customerBinder.forField(name)
-                .bind(Customer::getName, Customer::setName);
 
-//        foodItemBinder.forField(foodItemId)
-//                .withConverter(new StringToIntegerConverter("Must be integer!"))
-//                .withNullRepresentation(Integer.valueOf("0"))
-//                .bindReadOnly(FoodItem::getFoodItemId);
+        foodItemBinder.forField(foodItemId)
+                .withConverter(new StringToIntegerConverter("Must be integer!"))
+                .withNullRepresentation(Integer.valueOf("0"))
+                .bindReadOnly(FoodItem::getFoodItemId);
         foodItemBinder.forField(foodPrice)
-                .withConverter(new StringToDoubleConverter("Must be double!"))
-                .withNullRepresentation(123.0)
+//                .withConverter(new StringToDoubleConverter("Must be double!"))
+                .withNullRepresentation(String.valueOf(0))
                 .bind(FoodItem::getfoodPrice, FoodItem::setFoodPrice);
         foodItemBinder.forField(foodName).bind(FoodItem::getFoodName, FoodItem::setFoodName);
 
 //        customerBinder.bindInstanceFields(this);
 //        foodItemBinder.bindInstanceFields(this);
-        foodItemComboBox.setReadOnly(true);
+//        foodItemComboBox.setReadOnly(true);
         foodItemComboBox.setItems(foodItems);
         foodItemComboBox.setItemLabelGenerator(FoodItem::getFoodName);
 
         add(
-                name,
                 foodItemComboBox,
                 foodName,
                 foodPrice,

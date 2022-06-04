@@ -57,8 +57,8 @@ public class FoodItem  {
     public void setFoodItemId(Integer foodItemId) {
         this.foodItemId = foodItemId;
     }
-    public Double getfoodPrice() {
-        return Double.valueOf(foodPrice);
+    public @NotNull String getfoodPrice() {
+        return foodPrice;
     }
 
     public void setFoodPrice(Double price_food) {
@@ -82,6 +82,10 @@ public class FoodItem  {
 
     public Order getOrder() {
         return orderDetails.stream().findFirst().get().getOrder();
+    }
+
+    public void setFoodPrice(String foodPrice) {
+        this.foodPrice=foodPrice;
     }
 
 //    public void setOrder(Order order) {
