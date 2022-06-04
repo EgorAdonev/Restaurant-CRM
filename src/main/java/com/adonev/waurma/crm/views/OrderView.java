@@ -3,6 +3,7 @@ package com.adonev.waurma.crm.views;
 import com.adonev.waurma.crm.data.service.CrmService;
 import com.adonev.waurma.crm.data.entity.Order;
 import com.vaadin.flow.component.button.Button;
+import com.vaadin.flow.component.crud.Crud;
 import com.vaadin.flow.component.grid.Grid;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -31,6 +32,7 @@ public class OrderView extends VerticalLayout {
 
         add(getToolbar(), getContent());
         closeEditor();
+        updateOrderList();
     }
 
     private HorizontalLayout getContent() {
@@ -44,24 +46,29 @@ public class OrderView extends VerticalLayout {
 
     private void configureForm() {
         form = new OrderForm(
-//                service.findAllCustomers(),
+                service.findAllCustomers(),
                 service.findAllOrderDetails());
         form.setWidth("25em");
         form.addListener(OrderForm.SaveEvent.class, this::saveOrder);
         form.addListener(OrderForm.DeleteEvent.class, this::deleteOrder);
         form.addListener(OrderForm.CloseEvent.class, e -> closeEditor());
-
     }
 
     private void configureGrid() {
         grid.addClassName("order-grid");
         grid.setSizeFull();
-//        grid.setColumns("customer");
+        grid.setColumns("orderId");
         grid.addColumn(order -> order.isReady()).setHeader("Ready");
-//        grid.addColumn(order -> order.getCustomer().getName()).setHeader("Order Details");
-//        grid.addColumn(order -> order.getOrderDetails().stream().map(OrderDetail::toString)).setHeader("Order Details");
+        grid.addColumn(order -> order.getOrderDate()).setHeader("Order Date");
+
+        grid.addColumn(order -> {
+            String ordDet = order.getOrderDetails();
+            return ordDet==null ? "Demo Order" :  order.getOrderDetails();
+        }).setHeader("Order Details");
         grid.getColumns().forEach(col -> col.setAutoWidth(true));
 
+        grid.asSingleSelect().addValueChangeListener(event ->
+                editOrder(event.getValue()));
     }
 
     private HorizontalLayout getToolbar() {

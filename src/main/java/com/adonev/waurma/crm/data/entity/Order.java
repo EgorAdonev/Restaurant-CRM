@@ -31,14 +31,13 @@ public class Order {
     @NotNull
 //    @NotEmpty(message = "Поле не может быть пустым")
     @Column(name = "order_date")
-//            ,columnDefinition = "DATE")
     private LocalDateTime date;
 
 //    @NotNull
     @Column(name = "ready",columnDefinition = "bool")
     private Boolean ready;
 
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(
             name = "customer_id",
 //            nullable = false,
@@ -63,7 +62,6 @@ public class Order {
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
     }
-
 
 //    @OneToOne(mappedBy = "order",
 ////            orphanRemoval = true,

@@ -59,9 +59,8 @@ public class DataGenerator {
             orderGenerator.setData(Order::setOrderId,DataType.ID);
 
 //            com.adonev.waurma.crm.data.entity.Customer customer = new Customer();
-//            customerRepository.saveAll()
-            orderGenerator.setData(Order::setCustomer,customers.get(0));
-            List<Order> orderss = orderRepository.saveAll(orderGenerator.create(5,seed));
+            List<Order> orderz = orderRepository.saveAll(orderGenerator.create(5,seed));
+
 //            orderGenerator.setData(Order::setOrderDetails, new OrderDetail());
 //            orderGenerator.setData(Order::setFoodItemsInOrder, DataType.EMAIL);
 

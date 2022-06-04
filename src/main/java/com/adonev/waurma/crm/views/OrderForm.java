@@ -4,7 +4,6 @@ import com.adonev.waurma.crm.data.entity.FoodItem;
 import com.adonev.waurma.crm.data.entity.OrderDetail;
 import com.adonev.waurma.crm.data.entity.Customer;
 import com.adonev.waurma.crm.data.entity.Order;
-import com.adonev.waurma.crm.data.repository.OrderRepository;
 import com.adonev.waurma.crm.data.service.CrmService;
 import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.ComponentEvent;
@@ -15,18 +14,13 @@ import com.vaadin.flow.component.button.ButtonVariant;
 import com.vaadin.flow.component.combobox.ComboBox;
 import com.vaadin.flow.component.datetimepicker.DateTimePicker;
 import com.vaadin.flow.component.formlayout.FormLayout;
-import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.textfield.TextArea;
 import com.vaadin.flow.component.textfield.TextField;
 import com.vaadin.flow.data.binder.*;
 import com.vaadin.flow.data.converter.*;
 import com.vaadin.flow.data.validator.DateTimeRangeValidator;
-import com.vaadin.flow.data.value.ValueChangeMode;
 import com.vaadin.flow.shared.Registration;
-import com.vaadin.flow.spring.annotation.SpringComponent;
-import com.vaadin.flow.spring.annotation.UIScope;
-import org.springframework.beans.factory.annotation.Autowired;
 
 import java.time.LocalDateTime;
 import java.time.Month;
@@ -40,46 +34,45 @@ public class OrderForm extends FormLayout {
 
     TextField name = new TextField("Name","Your name");
 
-//    ComboBox<FoodItem> foodItemComboBox = new ComboBox<>("Food Items");
-    ComboBox<OrderDetail> ordersComboBox = new ComboBox<>("Order's Detail");
-//    ComboBox<Customer> customerComboBox = new ComboBox<>("Customers");
+    ComboBox<FoodItem> foodItemComboBox = new ComboBox<>("Food Items");
+//    ComboBox<Customer> customerComboBox = new ComboBox<>("Customer's Name");
 
     Button save = new Button("Save");
     Button delete = new Button("Delete");
     Button close = new Button("Cancel");
     CrmService service;
     Binder<Order> binder = new BeanValidationBinder<>(Order.class);
-    Binder<Customer> customerBinder = new BeanValidationBinder<>(Customer.class);
-    public OrderForm(List<OrderDetail> customersOrders){
+//    Binder<Customer> customerBinder = new BeanValidationBinder<>(Customer.class);
+    public OrderForm(List<Customer> allCustomers, List<OrderDetail> customersOrders){
         addClassName("order-form");
 //        binder.forField(orderId)
 //                .withConverter(new StringToIntegerConverter("Must be integer!"))
 //                .withNullRepresentation(Integer.valueOf("0"))
 //                .bind(Order::getOrderId, Order::setOrderId);
-        customerBinder.forField(name)
-                .bind(Customer::getName, Customer::setName);
 
+//        customerBinder.forField(name)
+//                .bind(Customer::getName, Customer::setName);
+
+//        binder.forField(orderDetails)
+//                .bind(Order::getOrderDetails,Order::setOrderDetails);
         binder.forField(date)
                 .withValidator(
                         new DateTimeRangeValidator("Time machine is broken :( Cannot place the order in past",
                          LocalDateTime.now(), LocalDateTime.of(2100, Month.JANUARY,1,0,0)))
                 .bind(Order::getOrderDate, Order::setOrderDate);
-        binder.forField(orderDetails)
-                .bind(Order::getOrderDetails,Order::setOrderDetails);
         binder.forField(ready)
                 .withConverter(new StringToBooleanConverter("Must be Boolean!"))
                 .withNullRepresentation(Boolean.FALSE)
                 .bind(Order::isReady,Order::setReady);
 
-
-//        ordersComboBox.setItems(customersOrders);
-//        ordersComboBox.setItemLabelGenerator(OrderDetail::toString);
+//        customerComboBox.setItems(allCustomers);
+//        customerComboBox.setItemLabelGenerator(Customer::getName);
 
         add(
-//                ordersComboBox,
                 ready,
                 date,
                 orderDetails,
+//                customerComboBox,
                 name,
                 createButtonsLayout());
     }
@@ -111,8 +104,6 @@ public class OrderForm extends FormLayout {
         this.order = order;
         binder.readBean(order);
     }
-
-
     public static abstract class OrderFormEvent extends ComponentEvent<OrderForm> {
         private final Order order;
         protected OrderFormEvent(OrderForm source, Order order) {
