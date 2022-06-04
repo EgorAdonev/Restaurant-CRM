@@ -43,9 +43,7 @@ public class MainLayout extends AppLayout {
         RouterLink listLink = new RouterLink("Orders List", OrderView.class);
         listLink.setHighlightCondition(HighlightConditions.sameLocation());
         RouterLink customersListLink = new RouterLink("Customers List", CustomerView.class);
-        customersListLink.setHighlightCondition(HighlightConditions.sameLocation());
         RouterLink menuListLink = new RouterLink("Menu", FoodItemView.class);
-        customersListLink.setHighlightCondition(HighlightConditions.sameLocation());
 
         addToDrawer(new VerticalLayout(
                 listLink,

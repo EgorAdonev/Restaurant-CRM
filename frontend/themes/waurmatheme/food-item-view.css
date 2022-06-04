@@ -1,0 +1,6 @@
+@media all and (max-width: 1100px) {
+  .food-item-view.editing .food-item-toolbar,
+  .food-item-view.editing .food-item-grid {
+    display: none;
+  }
+}

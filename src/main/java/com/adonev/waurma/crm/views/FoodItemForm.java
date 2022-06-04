@@ -43,25 +43,23 @@ public class FoodItemForm extends VerticalLayout {
 //        customerBinder.bind(customerOrders,"customerOrders");
 //        customerBinder.forField(customerOrders)
 //                .bind(Customer::getCustomerOrders,Customer::setCustomerOrders);
-
 //        customerBinder.forField(customerId)
 //                .withConverter(new StringToIntegerConverter("Must be integer!"))
 //                  .withNullRepresentation(Integer.valueOf("0"))
 //                .bind(Customer::getCustomerId, Customer::setCustomerId);
-
 //        customerBinder.forField(email)
 //                .withValidator(new EmailValidator("Not a Correct Email!"))
 //                .bind(Customer::getEmail, Customer::setEmail);
         customerBinder.forField(name)
                 .bind(Customer::getName, Customer::setName);
 
-        foodItemBinder.forField(foodItemId)
-                .withConverter(new StringToIntegerConverter("Must be integer!"))
-                .withNullRepresentation(Integer.valueOf("0"))
-                .bindReadOnly(FoodItem::getFoodItemId);
+//        foodItemBinder.forField(foodItemId)
+//                .withConverter(new StringToIntegerConverter("Must be integer!"))
+//                .withNullRepresentation(Integer.valueOf("0"))
+//                .bindReadOnly(FoodItem::getFoodItemId);
         foodItemBinder.forField(foodPrice)
                 .withConverter(new StringToDoubleConverter("Must be double!"))
-                .withNullRepresentation(Double.valueOf("0.01"))
+                .withNullRepresentation(123.0)
                 .bind(FoodItem::getfoodPrice, FoodItem::setFoodPrice);
         foodItemBinder.forField(foodName).bind(FoodItem::getFoodName, FoodItem::setFoodName);
 

@@ -15,13 +15,13 @@ import com.vaadin.flow.router.Route;
 @PageTitle("Menu")
 public class FoodItemView extends VerticalLayout {
     private Grid<FoodItem> gridFoodItem = new Grid<>(FoodItem.class);
-    TextField filterTextCustomer = new TextField();
+    TextField filterTextFoodItem = new TextField();
     FoodItemForm foodItemForm;
     CrmService service;
 
     public FoodItemView(CrmService service) {
         this.service = service;
-        addClassName("customer-view");
+        addClassName("food-item-view");
         setSizeFull();
         configureGrid();
         configureForm();
@@ -35,7 +35,7 @@ public class FoodItemView extends VerticalLayout {
         HorizontalLayout content = new HorizontalLayout(gridFoodItem, foodItemForm);
         content.setFlexGrow(2, gridFoodItem);
         content.setFlexGrow(1, foodItemForm);
-        content.addClassNames("content-customer-view");
+        content.addClassNames("content-food-item-view");
         content.setSizeFull();
         return content;
     }
@@ -51,11 +51,19 @@ public class FoodItemView extends VerticalLayout {
 
     private void configureGrid() {
 
-        gridFoodItem.addClassName("customer-grid");
+        gridFoodItem.addClassName("food-item-grid");
         gridFoodItem.setSizeFull();
         gridFoodItem.setColumns(
                 "foodItemId",
-                "foodName", "foodPrice");
+                "foodName");
+//                , "foodPrice");
+//        gridFoodItem.addColumn(menuItem -> menuItem.getfoodPrice()).setHeader("Price");
+//        grid.addColumn(order -> order.getOrderDate()).setHeader("Order Date");
+
+//        gridFoodItem.addColumn(foodItem -> {
+//            Double ordDet = foodItem.getfoodPrice();
+//            return ordDet==null ? 0.0 : foodItem.getfoodPrice();
+//        }).setHeader("price");
 
 //        grid1.addColumn(customer -> customer.getCustomerId()).setHeader("Customer ID");
 //        grid1.addColumn(customer -> customer.getName()).setHeader("Customer's Name");
@@ -68,16 +76,16 @@ public class FoodItemView extends VerticalLayout {
     }
 
     private HorizontalLayout getToolbar() {
-        filterTextCustomer.setPlaceholder("Filter...");
-        filterTextCustomer.setClearButtonVisible(true);
-        filterTextCustomer.setValueChangeMode(ValueChangeMode.LAZY);
-        filterTextCustomer.addValueChangeListener(e -> updateMenuList());
+        filterTextFoodItem.setPlaceholder("Filter...");
+        filterTextFoodItem.setClearButtonVisible(true);
+        filterTextFoodItem.setValueChangeMode(ValueChangeMode.LAZY);
+        filterTextFoodItem.addValueChangeListener(e -> updateMenuList());
 
         Button addCustomerButton = new Button("Add to menu");
         addCustomerButton.addClickListener(click -> addFoodItem());
 
-        HorizontalLayout toolbar = new HorizontalLayout(filterTextCustomer, addCustomerButton);
-        toolbar.addClassName("customer-toolbar");
+        HorizontalLayout toolbar = new HorizontalLayout(filterTextFoodItem, addCustomerButton);
+        toolbar.addClassName("food-item-toolbar");
         return toolbar;
     }
     private void closeEditor() {
@@ -113,6 +121,6 @@ public class FoodItemView extends VerticalLayout {
 
 
     private void updateMenuList() {
-        gridFoodItem.setItems(service.findAllFoodItems(filterTextCustomer.getValue()));
+        gridFoodItem.setItems(service.findAllFoodItems(filterTextFoodItem.getValue()));
     }
 }
