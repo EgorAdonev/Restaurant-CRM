@@ -62,7 +62,7 @@
 //		// wire action buttons to save, delete and reset
 //		save.addClickListener(e -> save());
 //		delete.addClickListener(e -> delete());
-//		cancel.addClickListener(e -> editCustomer(customer));
+//		cancel.addClickListener(e -> editFoodItem(customer));
 //		setVisible(false);
 //	}
 //
@@ -80,7 +80,7 @@
 //		void onChange();
 //	}
 //
-//	public final void editCustomer(Customer c) {
+//	public final void editFoodItem(Customer c) {
 //		if (c == null) {
 //			setVisible(false);
 //			return;

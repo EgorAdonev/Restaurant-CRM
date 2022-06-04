@@ -57,7 +57,7 @@ public class FoodItem  {
     public void setFoodItemId(Integer foodItemId) {
         this.foodItemId = foodItemId;
     }
-    public @NotNull Double getfoodPrice() {
+    public Double getfoodPrice() {
         return Double.valueOf(foodPrice);
     }
 

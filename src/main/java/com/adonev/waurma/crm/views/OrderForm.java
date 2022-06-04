@@ -31,7 +31,6 @@ public class OrderForm extends FormLayout {
     TextField ready = new TextField("Ready");
     DateTimePicker date = new DateTimePicker("Order Date");
     TextArea orderDetails = new TextArea("Details","Comment");
-
     TextField name = new TextField("Name","Your name");
 
     ComboBox<FoodItem> foodItemComboBox = new ComboBox<>("Food Items");

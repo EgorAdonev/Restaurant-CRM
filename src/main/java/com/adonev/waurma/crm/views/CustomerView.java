@@ -14,7 +14,7 @@ import com.vaadin.flow.router.Route;
 import javax.annotation.security.PermitAll;
 
 //@PermitAll
-@Route(value = "customers")
+@Route(value = "customers",layout = MainLayout.class)
 @PageTitle("Customers")
 public class CustomerView extends VerticalLayout {
     private Grid<Customer> grid1 = new Grid<>(Customer.class);

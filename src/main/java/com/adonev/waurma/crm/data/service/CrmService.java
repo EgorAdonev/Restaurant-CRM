@@ -37,11 +37,27 @@ public class CrmService {
     public List<FoodItem> findAllFoodItems(){
         return foodItemRepository.findAll();
     }
-    public List<Order> findAllOrders() {
-        return orderRepository.findAll();
-    }
     public List<OrderDetail> findAllOrderDetails() {
         return orderDetailRepository.findAll();
+    }
+
+    public void saveFoodItem(FoodItem customer) {
+        if (customer == null) {
+            System.err.println("Order is null. Are you sure you have connected your form to the application?");
+            return;
+        }
+        foodItemRepository.save(customer);
+    }
+    public void deleteFoodItem(FoodItem order) {
+        foodItemRepository.delete(order);
+    }
+
+    public List<FoodItem> findAllFoodItems(String stringFilter) {
+        if (stringFilter == null || stringFilter.isEmpty()) {
+            return foodItemRepository.findAll();
+        } else {
+            return foodItemRepository.search(stringFilter);
+        }
     }
 
     public long countOrders() {
