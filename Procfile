@@ -1,1 +1,0 @@
-web: java $JAVA_OPTS -cp target/classes/com/adonev/waurma/crm:target/dependency/* com.adonev.waurma.crm.Application
